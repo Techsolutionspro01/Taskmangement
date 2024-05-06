@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Tech Solutions Pro Task management software</title>
+    <title>Tech Solutions Pro Task</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Myra Studio" name="author" />
@@ -65,10 +65,9 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="#menuExpages" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                        <a href="/Taskmangement/assign-task.php" class="menu-link waves-effect waves-light">
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
-                            <span class="menu-text"> Extra Pages </span>
-                            <span class="menu-arrow"></span>
+                            <span class="menu-text"> Assign Task </span>
                         </a>
                         <div class="collapse" id="menuExpages">
                             <ul class="sub-menu">
@@ -490,3 +489,9 @@
                 </ul>
             </div>
         </div>
+  <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="page-content">
+            <?php include 'topbar.php'; ?>
