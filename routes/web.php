@@ -14,5 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
+
+
+
+// Temporary Routes Goes Here
+Route::get('/assign-task', function () {
+    return view('task.assign-task');
+})->name('assign-task');
