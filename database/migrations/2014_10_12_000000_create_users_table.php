@@ -15,10 +15,18 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->text('password');
+            $table->string('profile_pic')->nullable();
+            $table->date('joining_date')->nullable();
+            $table->date('expiry_date')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->tinyInteger('is_enable')->default(1);
             $table->timestamps();
+            $table->foreignIdFor(\App\Models\User::class, 'created_by');
+            $table->foreignIdFor(\App\Models\User::class, 'updated_by')->nullable();
         });
     }
 

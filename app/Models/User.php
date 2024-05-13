@@ -22,6 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_pic',
+        'joining_date',
+        'expiry_date',
+        'start_time',
+        'end_time',
+        'phone',
+        'whatsapp',
+        'created_by',
+        'updated_by',
     ];
 
     /**

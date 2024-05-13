@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="{{ route('roles.index')}}" class="menu-link">
+                                <a href="{{ route('roles.index') }}" class="menu-link">
                                     <span class="menu-text">List</span>
                                 </a>
                             </li>
@@ -62,12 +62,12 @@
                     <div class="collapse" id="menuComponentsUsers">
                         <ul class="sub-menu">
                             <li class="menu-item">
-                                <a href="#" class="menu-link">
+                                <a href="{{ route('users.create') }}" class="menu-link">
                                     <span class="menu-text">Add New</span>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="#" class="menu-link">
+                                <a href="{{ route('users.list') }}" class="menu-link">
                                     <span class="menu-text">List</span>
                                 </a>
                             </li>
