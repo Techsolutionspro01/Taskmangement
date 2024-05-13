@@ -18,6 +18,7 @@ class PermissionSeeder extends Seeder
             'create-users',
             'update-users',
             'delete-users',
+            
             'view-roles',
             'create-roles',
             'update-roles',
