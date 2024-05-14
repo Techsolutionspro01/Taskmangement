@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $data['roles'] = Role::idAscending()->get();
+        $data['roles'] = Role::get();
         return view('roles.list', $data);
     }
 
