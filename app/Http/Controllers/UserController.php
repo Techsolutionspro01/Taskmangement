@@ -37,17 +37,30 @@ class UserController extends Controller
     {
         // check for spatie role id instead of name
         $this->validate($request, [
-            'name' => 'required',
-            'roles' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'name'          => 'required|alpha_space',
+            'roles'         => 'required',
+            'email'         => 'required|email|unique:users,email',
+            'password'      => 'required',
+            'profile_pic'   => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'joining_date'  => 'nullable|date_format:Y-m-d',
+            'expiry_date'   => 'nullable|date_format:Y-m-d',
+            // 'start_time'    => 'nullable|date_format:H:i',
+            // 'end_time'      => 'nullable|date_format:H:i',
+            'phone'         => 'nullable|numeric',
+            'whatsapp'      => 'nullable|numeric',
         ]);
-    
+
+        if($request->hasFile('profile_pic')){
+            $image = $request->file('profile_pic');
+            $image_name = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
+            $org_name = $image->getClientOriginalName();
+            $request->file('profile_pic')->storeAs('public/profile_pics/', $image_name);
+        }
+
         $user = new User();
         $user->name         = $request->name;
         $user->email        = $request->email;
         $user->password     = Hash::make($request->password);
-        // $user->profile_pic  = $request->profile_pic;
         $user->joining_date = $request->joining_date;
         $user->expiry_date  = $request->expiry_date;
         $user->start_time   = $request->start_time;
@@ -55,6 +68,10 @@ class UserController extends Controller
         $user->phone        = $request->phone;
         $user->whatsapp     = $request->whatsapp;
         $user->created_by   = Auth::id();
+
+        if($request->hasFile('profile_pic')){
+            $user->profile_pic = $image_name;
+        }
 
         $response = $user->save();
         $user->assignRole($request->roles);
@@ -73,14 +90,26 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$request->id,
-            'roles' => 'required'
+            'name'          => 'required|alpha_space',
+            'roles'         => 'required',
+            'email'         => 'required|email|unique:users,email,'.$request->id,
+            'profile_pic'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'joining_date'  => 'nullable|date_format:Y-m-d',
+            'expiry_date'   => 'nullable|date_format:Y-m-d',
+            // 'start_time'    => 'nullable|date_format:g:i A',
+            // 'end_time'      => 'nullable|date_format:g:i A',
+            'phone'         => 'nullable|numeric',
+            'whatsapp'      => 'nullable|numeric',
         ]);
     
+        if($request->hasFile('profile_pic')){
+            $image = $request->file('profile_pic');
+            $image_name = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
+            $request->file('profile_pic')->storeAs('public/profile_pics/', $image_name);
+        }
+        
         $post_data['name']         = $request->name;
         $post_data['email']        = $request->email;
-        // $user->profile_pic  = $request->profile_pic;
         $post_data['joining_date'] = $request->joining_date;
         $post_data['expiry_date']  = $request->expiry_date;
         $post_data['start_time']   = $request->start_time;
@@ -89,6 +118,10 @@ class UserController extends Controller
         $post_data['whatsapp']     = $request->whatsapp;
         $post_data['updated_by']   = Auth::id();
 
+        if($request->hasFile('profile_pic')){
+            $post_data['profile_pic'] = $image_name;
+        }
+
 
         if(!empty($request->password)){ 
             $post_data['password'] = Hash::make($request->password);
@@ -96,7 +129,7 @@ class UserController extends Controller
     
         $user = User::find($request->id);
         $response = $user->update($post_data);
-        // return $response;
+
         DB::table('model_has_roles')->where('model_id',$request->id)->delete();
     
         $user->assignRole($request->roles);

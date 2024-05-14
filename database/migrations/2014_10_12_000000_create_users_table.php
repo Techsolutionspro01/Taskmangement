@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->text('password');
-            $table->string('profile_pic')->nullable();
+            $table->text('profile_pic')->nullable();
             $table->date('joining_date')->nullable();
             $table->date('expiry_date')->nullable();
             $table->time('start_time')->nullable();
