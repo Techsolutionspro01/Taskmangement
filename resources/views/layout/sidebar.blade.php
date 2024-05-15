@@ -76,6 +76,30 @@
                 </li>
             @endcan
 
+            {{-- @can('view-users') --}}
+                <li class="menu-item">
+                    <a href="#menuComponentsTaks" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                        <span class="menu-icon"><i class="bx bx-user"></i></span>
+                        <span class="menu-text"> Tasks </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="menuComponentsTaks">
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href="{{ route('tasks.create') }}" class="menu-link">
+                                    <span class="menu-text">Add New</span>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('tasks.list') }}" class="menu-link">
+                                    <span class="menu-text">List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            {{-- @endcan --}}
+
             <li class="menu-title">Custom</li>
 
             <li class="menu-item">

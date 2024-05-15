@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +36,9 @@ Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit
 Route::post('users/update', [UserController::class, 'update'])->name('users.update');
 Route::delete('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
 
-
+// Task Routes
+Route::get('tasks', [TaskController::class, 'index'])->name('tasks.list');
+Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 
 
 // Temporary Routes Goes Here
