@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Log In | TSP - Task Management Syatem</title>
+    <title>Log In | TSP - Task Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- App favicon -->

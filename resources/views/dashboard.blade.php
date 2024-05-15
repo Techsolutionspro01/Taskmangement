@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Dashboard')
+@section('title', 'Dashboard | TSP - Task Management System')
 @section('pageTitle', 'Dashboard')
 
 @section('content')

@@ -43,12 +43,15 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name' => 'required|alpha_space|unique:roles,name',
         ]);
 
         $role = Role::create(['name' => $request->input('name')]);
-        $permissions = array_map('intval', $request->input('permissions'));
-        $role->syncPermissions($permissions);
+
+        if($request->input('permissions')){
+            $permissions = array_map('intval', $request->input('permissions'));
+            $role->syncPermissions($permissions);
+        }
     
         return redirect()->route('roles.index')->with('success','Role created successfully');
     }
@@ -81,15 +84,17 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name,' . $id,
+            'name' => 'required|alpha_space|unique:roles,name,' . $id,
         ]);
     
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
     
-        $permissions = array_map('intval', $request->input('permissions'));
-        $role->syncPermissions($permissions);
+        if($request->input('permissions')){
+            $permissions = array_map('intval', $request->input('permissions'));
+            $role->syncPermissions($permissions);
+        }
     
         return redirect()->route('roles.index')->with('success','Role updated successfully');
     }
