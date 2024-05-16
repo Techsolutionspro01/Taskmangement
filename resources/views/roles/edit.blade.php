@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'Edit Role')
-@section('pageTitle', 'Edit Role')
+@section('title', 'Edit Role | TSP - Task Management System')
+@section('pageTitle', 'Edit Role Details')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                         @method('PATCH')
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Enter Role Name</label>
+                            <label for="name" class="form-label">Role Name</label>
                             <input name="name" type="text" class="form-control" id="name" placeholder="Enter Role Name" value="{{ $role->name }}" required>
                             <div class="invalid-feedback text-danger">
                                 Role name is required.
@@ -35,7 +35,7 @@
                             </div>
                         @endforeach
                         
-                        <button class="btn btn-primary" type="submit">Submit form</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </form>
 
                 </div> <!-- end card-body-->

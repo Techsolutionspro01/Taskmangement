@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignIdFor(\App\Models\User::class, 'created_by');
             $table->foreignIdFor(\App\Models\User::class, 'updated_by')->nullable();
+            $table->softDeletes();
         });
     }
 

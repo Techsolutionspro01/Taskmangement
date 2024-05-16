@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'User Roles List')
-@section('pageTitle', 'User Roles List')
+@section('title', 'Projects List | TSP - Task Management System')
+@section('pageTitle', 'Projects List')
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="roles-datatable" class="table dt-responsive nowrap w-100">
+                <table id="projects-datatable" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -17,19 +17,19 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($roles as $role)
+                        @foreach ($projects as $project)
                             <tr>
-                                <td>{{ $role->name }}</td>
+                                <td>{{ $project->name }}</td>
                                 <td>
                                     {{-- <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Show</a> --}}
-                                    @can('update-roles')
-                                        <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}">Edit</a>
+                                    @can('update-projects')
+                                        <a class="btn btn-primary" href="{{ route('projects.edit', $project->id) }}">Edit</a>
                                     @endcan
-                                    @can('delete-roles')
-                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
+                                    @can('delete-projects')
+                                        <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                         </form>
                                     @endcan
                                 </td>
@@ -47,6 +47,6 @@
 
 @section('script')
     <script>
-        $('#roles-datatable').DataTable();
+        $('#projects-datatable').DataTable();
     </script>
 @endsection

@@ -4,6 +4,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
+use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,11 +36,20 @@ Route::get('users/create', [UserController::class, 'create'])->name('users.creat
 Route::post('users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
 Route::post('users/update', [UserController::class, 'update'])->name('users.update');
-Route::delete('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 // Task Routes
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.list');
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+
+// Project Routes
+Route::get('projects', [ProjectController::class, 'index'])->name('projects.list');
+Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+Route::post('projects/store', [ProjectController::class, 'store'])->name('projects.store');
+Route::get('projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
+Route::post('projects/update', [ProjectController::class, 'update'])->name('projects.update');
+Route::delete('projects/destroy/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
 
 // Temporary Routes Goes Here

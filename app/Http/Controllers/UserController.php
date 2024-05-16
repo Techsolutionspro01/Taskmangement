@@ -136,4 +136,12 @@ class UserController extends Controller
     
         return redirect()->route('users.list')->with('success','User updated successfully');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete(); // Soft delete
+
+        return redirect()->route('users.list')->with('success', 'Record deleted successfully.');
+    }
 }

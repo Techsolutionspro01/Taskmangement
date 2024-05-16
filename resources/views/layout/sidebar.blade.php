@@ -76,10 +76,34 @@
                 </li>
             @endcan
 
-            {{-- @can('view-users') --}}
+            @can('view-projects')
+                <li class="menu-item">
+                    <a href="#menuComponentsProjects" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                        <span class="menu-icon"><i class="bx bx-user"></i></span>
+                        <span class="menu-text"> Projects </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="menuComponentsProjects">
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href="{{ route('projects.create') }}" class="menu-link">
+                                    <span class="menu-text">Add New</span>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('projects.list') }}" class="menu-link">
+                                    <span class="menu-text">List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+
+            @can('view-tasks')
                 <li class="menu-item">
                     <a href="#menuComponentsTaks" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
-                        <span class="menu-icon"><i class="bx bx-user"></i></span>
+                        <span class="menu-icon"><i class="bx bx-task"></i></span>
                         <span class="menu-text"> Tasks </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -98,7 +122,7 @@
                         </ul>
                     </div>
                 </li>
-            {{-- @endcan --}}
+            @endcan
 
             <li class="menu-title">Custom</li>
 
