@@ -11,22 +11,32 @@
                 <table id="users-datatable" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
+                            <th>Task ID</th>
                             <th>Title</th>
-                            <th>Description</th>
+                            <th>Assign To</th>
                             <th>Project</th>
                             <th>Priority</th>
                             <th>Status</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($tasks as $task)
                             <tr>
+                                <td><a href="{{ route('tasks.show', base64_encode($task->id)) }}"> {{ $task->id }} </a></td>
                                 <td>{{ $task->title }}</td>
-                                <td>{{ $task->description }}</td>
+                                <td>
+                                    @foreach ($task->users as $user)
+                                        <span>{{ $user->name }}</span>@if(!$loop->last), @endif
+                                    @endforeach
+                                </td>
                                 <td>{{ $task->project->name }}</td>
                                 <td>{{ config('constants.PRIORITY_LIST')[$task->priority] }}</td>
                                 <td>{{ config('constants.STATUS_LIST')[$task->status] }}</td>
+                                <td>{{ $task->creator->name }}</td>
+                                <td>{{ $task->formatted_created_at  }}</td>
                                 {{-- <td>
                                     <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Show</a>
                                     @can('update-roles')
@@ -52,6 +62,8 @@
 
 @section('script')
     <script>
-        $('#users-datatable').DataTable();
+        $('#users-datatable').DataTable({
+            "order": [[ 0, "desc" ]]
+        });
     </script>
 @endsection

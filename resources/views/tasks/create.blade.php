@@ -48,13 +48,25 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" name="assign_to" id="assign_to" aria-label="Assign To">
+                                    <select class="form-select" name="assign_to[]" id="assign_to" aria-label="Assign To">
                                         <option value="" selected>Please select one from blow</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                     <label for="assign_to">Assign To</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" name="start_date" id="start_date">
+                                    <label for="start_date">Start Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" name="end_date" id="end_date">
+                                    <label for="end_date">End Date</label>
                                 </div>
                             </div>
                         </div>
@@ -66,9 +78,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-floating mb-2">
-                            <textarea class="form-control" name="description" placeholder="Write description here" id="description" style="height: 100px" data-gramm="false" wt-ignore-input="true" required></textarea>
-                            <label for="description">Task Description</label>
+                        <div class="row">
+                            <div class="form-floating mb-2">
+                                <textarea class="form-control" name="description" placeholder="Write description here" id="description" style="height: 100px" required></textarea>
+                                <label for="description">Task Description</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" mb-2">
+                                <input type="file" name="attachment" class="form-control" id="attachment">
+                            </div>
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary w-md">Submit</button>

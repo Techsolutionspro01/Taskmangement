@@ -42,6 +42,7 @@ Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('u
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.list');
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
 
 // Project Routes
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.list');
