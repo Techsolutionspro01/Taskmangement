@@ -10,6 +10,10 @@ class Task extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'status',
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'task_user');
@@ -23,6 +27,11 @@ class Task extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
     }
 
     // accessor for formatted created_at

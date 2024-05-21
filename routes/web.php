@@ -43,6 +43,7 @@ Route::get('tasks', [TaskController::class, 'index'])->name('tasks.list');
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
+Route::post('tasks/update', [TaskController::class, 'update'])->name('tasks.update');
 
 // Project Routes
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.list');

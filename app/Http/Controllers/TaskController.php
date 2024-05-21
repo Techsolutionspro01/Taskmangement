@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Attachment;
+use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -30,8 +32,10 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task_id = base64_decode($id);
-        $data['task'] = Task::with('project', 'users')->find($task_id);
+        $task_id        = base64_decode($id);
+        $data['task']   = Task::with('project', 'users', 'attachments')->find($task_id);
+        $data['status'] = config('constants.STATUS_LIST');
+
         return view('tasks.show', $data);
     }
 
@@ -52,6 +56,7 @@ class TaskController extends Controller
             'priority'      => 'required|numeric',
             'status'        => 'required|numeric',
             // 'assign_to'     => 'required|numeric',
+            'attachment'   => 'max:2048',
             'title'         => 'required',
             'description'   => 'required',
         ]);
@@ -68,11 +73,56 @@ class TaskController extends Controller
         $task['end_date']       = $request->end_date ?? NULL;
 
         $response = $task->save();
-        $task_id = $task->id;
 
         $users = $request->assign_to;
         $task->users()->attach($users);
 
+        if($request->hasFile('attachment')){
+            $file       = $request->file('attachment');
+            $file_name  = time() . '_' . uniqid('', true) . '.' . $file->getClientOriginalExtension();
+            $org_name   = $file->getClientOriginalName();
+            
+            $request->file('attachment')->storeAs('public/tasks_file/', $file_name);
+
+            $file_data = new Attachment();
+
+            $file_data['task_id']       = $task->id;
+            $file_data['file_name']     = $org_name;
+            $file_data['path']          = $file_name;
+            $file_data['created_by']    = Auth::id();
+
+            $file_data->save();
+        }
+
         return redirect()->route('tasks.list')->with('success','Task assigned successfully');
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'task_id' => 'required',
+            'status' => 'required',
+        ]);
+        
+        // Find the task and store the old status
+        $task = Task::find($request->task_id);
+        $old_status = $task->status;
+
+        // Prepare the task data for update
+        $task_data['status'] = $request->status;
+        $task_data['updated_by'] = Auth::id();
+        $task_response = $task->update($task_data);
+        
+
+        // Create a log entry
+        $log_data = new Log();
+        $log_data['user_id']    = Auth::id();
+        $log_data['task_id']    = $request->task_id;
+        $log_data['old_status'] = $old_status;
+        $log_data['status']     = $request->status;
+
+        $log_data->save();
+    
+        return redirect()->route('tasks.show', ['id' => base64_encode($request->task_id)])->with('success', 'Task updated successfully');
     }
 }
