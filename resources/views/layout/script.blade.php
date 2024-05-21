@@ -14,3 +14,7 @@
 
 <!-- Dashboard init-->
 <script src=" {{asset('assets/theme/js/pages/dashboard.js')}}"></script>
+
+<!-- Datatable -->
+<script src="{{ asset('assets/theme/libs/datatable/js/dataTables.min.js')}}"></script>
+<script src="{{ asset('assets/theme/libs/datatable/js/dataTables.bootstrap5.min.js')}}"></script>

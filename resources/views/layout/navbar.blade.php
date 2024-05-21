@@ -105,9 +105,9 @@
 
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset('assets/theme/images/users/avatar-8.jpg')}}" alt="user-image" class="rounded-circle">
+                    <img src="{{ Auth::user()->profile_pic ? asset('storage/profile_pics/'. Auth::user()->profile_pic )  : asset('storage/profile_pics/default.jpg')}}" alt="user-image" class="rounded-circle">
                     <span class="ms-1 d-none d-md-inline-block">
-                        Jamie D. <i class="mdi mdi-chevron-down"></i>
+                        {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
@@ -137,10 +137,13 @@
                     <div class="dropdown-divider"></div>
 
                     <!-- item-->
-                    <a href="pages-login.html" class="dropdown-item notify-item">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
 
                 </div>
             </li>
