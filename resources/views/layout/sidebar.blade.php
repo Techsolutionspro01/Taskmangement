@@ -37,11 +37,14 @@
                     </a>
                     <div class="collapse" id="menuComponentsRoles">
                         <ul class="sub-menu">
-                            <li class="menu-item">
-                                <a href="{{ route('roles.create') }}" class="menu-link">
-                                    <span class="menu-text">Add New</span>
-                                </a>
-                            </li>
+                            @can('create-roles')
+                                <li class="menu-item">
+                                    <a href="{{ route('roles.create') }}" class="menu-link">
+                                        <span class="menu-text">Add New</span>
+                                    </a>
+                                </li>
+                            @endcan
+
                             <li class="menu-item">
                                 <a href="{{ route('roles.index') }}" class="menu-link">
                                     <span class="menu-text">List</span>
@@ -61,11 +64,14 @@
                     </a>
                     <div class="collapse" id="menuComponentsUsers">
                         <ul class="sub-menu">
-                            <li class="menu-item">
-                                <a href="{{ route('users.create') }}" class="menu-link">
-                                    <span class="menu-text">Add New</span>
-                                </a>
-                            </li>
+                            @can('create-users')
+                                <li class="menu-item">
+                                    <a href="{{ route('users.create') }}" class="menu-link">
+                                        <span class="menu-text">Add New</span>
+                                    </a>
+                                </li>
+                            @endcan
+
                             <li class="menu-item">
                                 <a href="{{ route('users.list') }}" class="menu-link">
                                     <span class="menu-text">List</span>
@@ -85,11 +91,14 @@
                     </a>
                     <div class="collapse" id="menuComponentsProjects">
                         <ul class="sub-menu">
-                            <li class="menu-item">
-                                <a href="{{ route('projects.create') }}" class="menu-link">
-                                    <span class="menu-text">Add New</span>
-                                </a>
-                            </li>
+                            @can('create-projects')
+                                <li class="menu-item">
+                                    <a href="{{ route('projects.create') }}" class="menu-link">
+                                        <span class="menu-text">Add New</span>
+                                    </a>
+                                </li>    
+                            @endcan
+                            
                             <li class="menu-item">
                                 <a href="{{ route('projects.list') }}" class="menu-link">
                                     <span class="menu-text">List</span>
@@ -109,11 +118,13 @@
                     </a>
                     <div class="collapse" id="menuComponentsTaks">
                         <ul class="sub-menu">
-                            <li class="menu-item">
-                                <a href="{{ route('tasks.create') }}" class="menu-link">
-                                    <span class="menu-text">Add New</span>
-                                </a>
-                            </li>
+                            @can('create-tasks')
+                                <li class="menu-item">
+                                    <a href="{{ route('tasks.create') }}" class="menu-link">
+                                        <span class="menu-text">Add New</span>
+                                    </a>
+                                </li>
+                            @endcan
                             <li class="menu-item">
                                 <a href="{{ route('tasks.list') }}" class="menu-link">
                                     <span class="menu-text">List</span>
@@ -123,95 +134,7 @@
                     </div>
                 </li>
             @endcan
-
-            <li class="menu-title">Custom</li>
-
-            <li class="menu-item">
-                <a href="apps-calendar.html" class="menu-link waves-effect waves-light">
-                    <span class="menu-icon"><i class="bx bx-calendar"></i></span>
-                    <span class="menu-text"> Calendar </span>
-                </a>
-            </li>
-
-            <li class="menu-item">
-                <a href="{{ route('assign-task')}}" class="menu-link waves-effect waves-light">
-                    <span class="menu-icon"><i class="bx bx-file"></i></span>
-                    <span class="menu-text"> Assign Task </span>
-                </a>
-            </li>
-
-            <li class="menu-title">Components</li>
-
-            <li class="menu-item">
-                <a href="#menuMultilevel" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
-                    <span class="menu-icon"><i class="bx bx-share-alt"></i></span>
-                    <span class="menu-text"> Multi Level </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="menuMultilevel">
-                    <ul class="sub-menu">
-                        <li class="menu-item">
-                            <a href="#menuMultilevel2" data-bs-toggle="collapse"
-                                class="menu-link waves-effect waves-light">
-                                <span class="menu-text"> Second Level </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <div class="collapse" id="menuMultilevel2">
-                                <ul class="sub-menu">
-                                    <li class="menu-item">
-                                        <a href="javascript: void(0);" class="menu-link">
-                                            <span class="menu-text">Item 1</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="javascript: void(0);" class="menu-link">
-                                            <span class="menu-text">Item 2</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="#menuMultilevel3" data-bs-toggle="collapse"
-                                class="menu-link waves-effect waves-light">
-                                <span class="menu-text">Third Level</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <div class="collapse" id="menuMultilevel3">
-                                <ul class="sub-menu">
-                                    <li class="menu-item">
-                                        <a href="javascript: void(0);" class="menu-link">
-                                            <span class="menu-text">Item 1</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#menuMultilevel4" data-bs-toggle="collapse"
-                                            class="menu-link waves-effect waves-light">
-                                            <span class="menu-text">Item 2</span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <div class="collapse" id="menuMultilevel4">
-                                            <ul class="sub-menu">
-                                                <li class="menu-item">
-                                                    <a href="javascript: void(0);" class="menu-link">
-                                                        <span class="menu-text">Item 1</span>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="javascript: void(0);" class="menu-link">
-                                                        <span class="menu-text">Item 2</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            
         </ul>
     </div>
 </div>

@@ -37,7 +37,7 @@
 
                             <div class="form-group mb-3">
                                 <label class="form-label" for="emailaddress">Email address</label>
-                                <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus tabindex="1">
                                 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
                             <div class="form-group mb-3">
                                 <a href="pages-recoverpw.html" class="text-muted float-end"><small></small></a>
                                 <label class="form-label" for="password">Password</label>
-                                <input class="form-control @error('password') is-invalid @enderror" type="password" id="password" name="password" required autocomplete="current-password">
+                                <input class="form-control @error('password') is-invalid @enderror" type="password" id="password" name="password" required autocomplete="current-password" tabindex="2">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="form-group mb-0 text-center">
-                                <button class="btn btn-primary w-100" type="submit"> Log In </button>
+                                <button class="btn btn-primary w-100" type="submit" tabindex="3"> Log In </button>
                             </div>
 
                         </form>

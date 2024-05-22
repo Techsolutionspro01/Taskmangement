@@ -77,19 +77,24 @@
             @endforeach
             <hr>
             <h5>Comments</h5>
-            <form action="">
+            <form action="{{ route('comments.store') }}" method="post" id="comment_form">
+                @csrf
+                <input type="hidden" name="task_id" id="task_id" value="{{ $task->id }}">
                 <div class="mb-3">
-                    <textarea class="form-control" name="description" placeholder="Write description here" id="description" style="height: 100px" required></textarea>
+                    <textarea class="form-control" name="comment" placeholder="Write description here" id="comment" style="height: 100px" required></textarea>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary w-md">Submit</button>
                 </div>
             </form>
             <hr>
-            <div>
-                <h6>Usman DJ <span class="float-end">{{ $task->formatted_created_at }}</span></h6>
-                <p>kindly provide all detail</p>
-            </div>
+            @foreach ($task->comments as $comment)
+                <div>
+                    <h6>{{ $comment->user->name }} <span class="float-end">{{ $comment->formatted_created_at }}</span></h6>
+                    <p>{{ $comment->comment }}</p>
+                    <hr style="border-top: dashed 1px;" />
+                </div>
+            @endforeach
         </div>
     </div>
 
