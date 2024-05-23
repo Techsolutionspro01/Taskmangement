@@ -39,10 +39,15 @@ class Task extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
+
     // accessor for formatted created_at
     public function getFormattedCreatedAtAttribute()
     {
-        return \Carbon\Carbon::parse($this->attributes['created_at'])->format('d-m-Y h:i');
+        return \Carbon\Carbon::parse($this->attributes['created_at'])->format('d-m-Y h:i A');
     }
 
     public function getFormattedStartDateAttribute()

@@ -15,8 +15,8 @@
                             <th>Title</th>
                             <th>Assign To</th>
                             <th>Project</th>
-                            <th>Priority</th>
                             <th>Status</th>
+                            <th>Priority</th>
                             <th>Created By</th>
                             <th>Created At</th>
                         </tr>
@@ -33,21 +33,10 @@
                                     @endforeach
                                 </td>
                                 <td>{{ $task->project->name }}</td>
-                                <td>{{ config('constants.PRIORITY_LIST')[$task->priority] }}</td>
                                 <td>{{ config('constants.STATUS_LIST')[$task->status] }}</td>
+                                <td>{{ config('constants.PRIORITY_LIST')[$task->priority] }}</td>
                                 <td>{{ $task->creator->name }}</td>
                                 <td>{{ $task->formatted_created_at  }}</td>
-                                {{-- <td>
-                                    <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Show</a>
-                                    @can('update-roles')
-                                        <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Edit</a>
-                                    @endcan
-                                    @can('delete-roles')
-                                        {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                        {!! Form::close() !!}
-                                    @endcan
-                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
