@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -38,6 +39,9 @@ Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit
 Route::post('users/update', [UserController::class, 'update'])->name('users.update');
 Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
+Route::get('users/profile', [UserController::class, 'profile'])->name('users.profile');
+Route::post('users/profile_update', [UserController::class, 'profile_update'])->name('users.profile_update');
+
 // Task Routes
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.list');
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
@@ -53,6 +57,7 @@ Route::get('projects/edit/{id}', [ProjectController::class, 'edit'])->name('proj
 Route::post('projects/update', [ProjectController::class, 'update'])->name('projects.update');
 Route::delete('projects/destroy/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
+Route::post('comments/store', [CommentController::class, 'store'])->name('comments.store');
 
 // Temporary Routes Goes Here
 Route::get('/assign-task', function () {

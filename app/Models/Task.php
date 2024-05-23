@@ -34,6 +34,11 @@ class Task extends Model
         return $this->hasMany(Attachment::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     // accessor for formatted created_at
     public function getFormattedCreatedAtAttribute()
     {

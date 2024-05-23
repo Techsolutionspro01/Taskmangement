@@ -33,7 +33,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task_id        = base64_decode($id);
-        $data['task']   = Task::with('project', 'users', 'attachments')->find($task_id);
+        $data['task']   = Task::with('project', 'users', 'attachments', 'comments.user')->find($task_id);
         $data['status'] = config('constants.STATUS_LIST');
 
         return view('tasks.show', $data);
