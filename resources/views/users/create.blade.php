@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">User Details required </h4>
+                    <h4 class="header-title">User Details</h4>
                     <div class="row">
                         <div class="col-12">
                             <div class="p-2">
@@ -31,8 +31,8 @@
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="roles">Role</label>
                                         <div class="col-md-10">
-                                            <select name="roles" id="roles" class="form-select">
-                                                <option selected>Select Role</option>
+                                            <select name="roles" id="roles" class="form-select" required>
+                                                <option value="" selected>Select Role</option>
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->name }}" @if(old('roles') == $role->name) selected @endif>{{ $role->name }}</option>  
                                                 @endforeach
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </form>
                             </div>
                         </div>

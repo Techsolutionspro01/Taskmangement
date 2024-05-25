@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Create Role')
+@section('title', 'Create Role | TSP - Task Management System')
 @section('pageTitle', 'Add New Role')
 
 @section('content')
@@ -11,7 +11,7 @@
                     <form action="{{ route('roles.store') }}" method="post" class="needs-validation" novalidate>
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Enter Role Name</label>
+                            <label for="name" class="form-label">Role Name</label>
                             <input name="name" type="text" class="form-control" id="name" placeholder="Enter Role Name" value="{{ old('name') }}" required>
                             <div class="invalid-feedback text-danger">
                                 Role name is required.
@@ -34,7 +34,7 @@
                             </div>
                         @endforeach
                         
-                        <button class="btn btn-primary" type="submit">Submit form</button>
+                        <button class="btn btn-primary" type="submit">Save</button>
                     </form>
 
                 </div> <!-- end card-body-->

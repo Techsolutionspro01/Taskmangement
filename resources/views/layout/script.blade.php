@@ -18,3 +18,6 @@
 <!-- Datatable -->
 <script src="{{ asset('assets/theme/libs/datatable/js/dataTables.min.js')}}"></script>
 <script src="{{ asset('assets/theme/libs/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
+
+<!-- Dropzone -->
+<script src="{{ asset('assets/theme/libs/dropzone/min/dropzone.min.js')}}"></script>

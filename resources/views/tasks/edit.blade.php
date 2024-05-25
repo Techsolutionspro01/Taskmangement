@@ -37,8 +37,8 @@
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="roles">Role</label>
                                         <div class="col-md-10">
-                                            <select name="roles" id="roles" class="form-select" required>
-                                                <option value="" selected>Select Role</option>
+                                            <select name="roles" id="roles" class="form-select">
+                                                <option selected="">Select Role</option>
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->name }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>{{ $role->name }}</option>  
                                                 @endforeach
@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>

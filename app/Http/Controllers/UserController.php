@@ -136,4 +136,55 @@ class UserController extends Controller
     
         return redirect()->route('users.list')->with('success','User updated successfully');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete(); // Soft delete
+
+        return redirect()->route('users.list')->with('success', 'Record deleted successfully.');
+    }
+
+    public function profile()
+    {
+        $data['user'] = Auth::user();
+        return view('users.profile', $data);
+    }
+
+    public function profile_update(Request $request)
+    {
+        $this->validate($request, [
+            'name'          => 'required|alpha_space',
+            'profile_pic'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'phone'         => 'nullable|numeric',
+            'whatsapp'      => 'nullable|numeric',
+        ]);
+    
+        if($request->hasFile('profile_pic')){
+            $image = $request->file('profile_pic');
+            $image_name = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
+            $request->file('profile_pic')->storeAs('public/profile_pics/', $image_name);
+        }
+        
+        $user_id = Auth::id();
+
+        $post_data['name']         = $request->name;
+        $post_data['phone']        = $request->phone;
+        $post_data['whatsapp']     = $request->whatsapp;
+        $post_data['updated_by']   = $user_id;
+
+        if($request->hasFile('profile_pic')){
+            $post_data['profile_pic'] = $image_name;
+        }
+
+
+        if(!empty($request->password)){ 
+            $post_data['password'] = Hash::make($request->password);
+        }
+    
+        $user = User::find($user_id);
+        $response = $user->update($post_data);
+    
+        return redirect()->route('users.profile')->with('success','User updated successfully');
+    }
 }
