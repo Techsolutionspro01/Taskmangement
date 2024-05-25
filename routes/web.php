@@ -6,7 +6,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
-use App\Models\Project;
+use App\Http\Controllers\AttachmentController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +50,12 @@ Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store'
 Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
 Route::post('tasks/update', [TaskController::class, 'update'])->name('tasks.update');
 
+// Task Comments
+Route::post('comments/store', [CommentController::class, 'store'])->name('comments.store');
+
+// Task Attachments
+Route::post('attachments/store', [AttachmentController::class, 'store'])->name('attachments.store');
+
 // Project Routes
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.list');
 Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
@@ -56,8 +63,6 @@ Route::post('projects/store', [ProjectController::class, 'store'])->name('projec
 Route::get('projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
 Route::post('projects/update', [ProjectController::class, 'update'])->name('projects.update');
 Route::delete('projects/destroy/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
-
-Route::post('comments/store', [CommentController::class, 'store'])->name('comments.store');
 
 // Temporary Routes Goes Here
 Route::get('/assign-task', function () {

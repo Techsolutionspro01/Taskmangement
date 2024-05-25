@@ -21,4 +21,3 @@
 
 <!-- Dropzone -->
 <script src="{{ asset('assets/theme/libs/dropzone/min/dropzone.min.js')}}"></script>
-{{-- <script src="{{ asset('assets/js/pages/form-fileuploads.js')}}"></script> --}}

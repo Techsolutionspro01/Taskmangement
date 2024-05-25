@@ -58,49 +58,24 @@
     </div><!-- /.modal -->
 
     <!-- Modal for Attachments -->
-    <div id="attachments_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="attachmentsModal" aria-hidden="true">
+    <div id="attachments_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="attachmentsModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="attachmentsModal">Add Attachments</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </div>
-                {{-- <form class="px-3" action="{{ route('tasks.update') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="task_id" value="{{ $task->id }}">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status:</label>
-                            <input type="file" name="attachments[]" id="attachments" multiple>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form> --}}
                 <div class="card">
                     <div class="card-body">
-                        <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews"
-                            data-upload-preview-template="#uploadPreviewTemplate">
-                            <div class="fallback">
-                                <input name="file" type="file" multiple />
-                            </div>
-
-                            <div class="dz-message needsclick">
-                                <i class="h1 text-muted ri-upload-cloud-2-line"></i>
-                                <h3>Drop files here or click to upload.</h3>
-                                <span class="text-muted font-size-13">(This is just a demo dropzone. Selected files are
-                                    <strong>not</strong> actually uploaded.)</span>
-                            </div>
+                        <form action="{{ route('attachments.store')}}" method="post" enctype="multipart/form-data" class="dropzone" id="file-dropzone">
+                            @csrf
+                            <input type="hidden" name="task_id" value="{{ $task->id }}">
                         </form>
-
-                        <!-- Preview -->
-                        <div class="dropzone-previews mt-3" id="file-previews"></div>  
-
-                        <p>
-                            DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.
-                        </p>
+                        <p>Maz file size is 2mb.</p>
+                        <div class="modal-footer">
+                            <button id="upload-button" class="btn btn-primary">Upload</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div><!-- /.modal-content -->
@@ -131,7 +106,7 @@
             </div>
             <hr>
             @foreach ($task->attachments as $attachment)
-                <h6>{{ $attachment->file_name }} <span class="float-end"><a href="{{ asset('storage/tasks_file/'.$attachment->path ) }}" download><i class="fas fa-download"></i></a></span></h6>
+                <h6> <a href="{{ asset('storage/tasks_file/'.$attachment->path ) }}" target="_blank">{{ $attachment->file_name }}</a> <span class="float-end"><a href="{{ asset('storage/tasks_file/'.$attachment->path ) }}" download><i class="fas fa-download"></i></a></span></h6>
             @endforeach
             <hr>
             <h5>Comments</h5>
@@ -179,5 +154,38 @@
 @endsection
 
 @section('script')
-   
+<script>
+    Dropzone.options.fileDropzone = {
+        autoProcessQueue: false,
+        maxFilesize: 2, // MB
+        parallelUploads: 10,
+        addRemoveLinks: true,
+        dictRemoveFile: 'Remove',
+        init: function() {
+            var submitButton = document.querySelector("#upload-button");
+            var myDropzone = this;
+
+            submitButton.addEventListener("click", function() {
+                myDropzone.processQueue();
+            });
+
+            this.on("success", function(file, response) {
+                console.log(response);
+                // location.reload();
+            });
+
+            this.on("queuecomplete", function() {
+                console.log("All files have been uploaded successfully.");
+                setTimeout(function() {
+                    location.reload();
+                }, 1000); // Delay of 1 second
+            });
+
+            this.on("removedfile", function(file) {
+                console.log('File removed:', file);
+                // Handle file removal if necessary
+            });
+        }
+    };
+</script>
 @endsection
