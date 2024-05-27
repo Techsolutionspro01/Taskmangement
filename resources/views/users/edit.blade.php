@@ -20,6 +20,7 @@
                                 <form action="{{ route('users.update') }}" method="post" id="user_form" class="form-horizontal needs-validation" role="form" novalidate enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $user->id }}">
+                                    
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="name">Full Name</label>
                                         <div class="col-md-10">
@@ -34,6 +35,7 @@
                                             @endif
                                         </div>
                                     </div>
+
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="roles">Role</label>
                                         <div class="col-md-10">
@@ -53,6 +55,27 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <div class="mb-2 row">
+                                        <label class="col-md-2 col-form-label" for="departments">Department</label>
+                                        <div class="col-md-10">
+                                            <select name="department" id="department" class="form-select" required>
+                                                <option value="" selected>Select Department</option>
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}" {{ $user->department_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>  
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback text-danger">
+                                                Department is required.
+                                            </div>
+                                            @if ($errors->has('roles'))
+                                                <span class="help-block text-danger">
+                                                    {{ $errors->first('department') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="email">Email</label>
                                         <div class="col-md-10">
@@ -67,6 +90,7 @@
                                             @endif
                                         </div>
                                     </div>
+
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="password">Password</label>
                                         <div class="col-md-10">
@@ -81,6 +105,7 @@
                                             @endif
                                         </div>
                                     </div>
+
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="profile_pic">Profile Picture</label>
                                         <div class="col-md-10">
@@ -95,6 +120,7 @@
                                             @endif
                                         </div>
                                     </div>
+
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="joining_date">Joining Date</label>
                                         <div class="col-md-10">
@@ -106,6 +132,7 @@
                                             @endif
                                         </div>
                                     </div>
+
                                     <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="expiry_date">Contract Expired</label>
                                         <div class="col-md-10">
