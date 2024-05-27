@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AttachmentController;
-
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,6 +63,15 @@ Route::post('projects/store', [ProjectController::class, 'store'])->name('projec
 Route::get('projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
 Route::post('projects/update', [ProjectController::class, 'update'])->name('projects.update');
 Route::delete('projects/destroy/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+
+// Department Routes
+Route::get('departments', [DepartmentController::class, 'index'])->name('departments.list');
+Route::get('departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+Route::post('departments/store', [DepartmentController::class, 'store'])->name('departments.store');
+Route::get('departments/edit/{id}', [DepartmentController::class, 'edit'])->name('departments.edit');
+Route::post('departments/update', [DepartmentController::class, 'update'])->name('departments.update');
+Route::delete('departments/destroy/{id}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
+
 
 // Temporary Routes Goes Here
 Route::get('/assign-task', function () {

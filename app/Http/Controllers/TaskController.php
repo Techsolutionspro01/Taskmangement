@@ -25,8 +25,23 @@ class TaskController extends Controller
 
     public function index()
     {
-        $data['tasks'] = Task::where('is_enable', 1)->with('project', 'users', 'creator')->orderBy('id', 'desc')->get();
-        // return $data['tasks'];
+        // $data['tasks'] = Task::where('is_enable', 1)->with('project', 'users', 'creator')->orderBy('id', 'desc')->get();
+        
+        $user = Auth::user();
+        $department_id = $user->department_id;
+
+        if($department_id){
+            $data['tasks'] = Task::whereHas('users', function ($query) use ($department_id) {
+                $query->where('department_id', $department_id);
+            })->where('is_enable', 1)
+              ->with('project', 'users', 'creator')
+              ->orderBy('id', 'desc')
+              ->get();
+        }
+        else{
+            $data['tasks'] = Task::where('is_enable', 1)->with('project', 'users', 'creator')->orderBy('id', 'desc')->get();
+        }
+
         return view('tasks.list', $data);
     }
 

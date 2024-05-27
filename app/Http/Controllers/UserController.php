@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -23,13 +24,15 @@ class UserController extends Controller
 
     public function index()
     {
-        $data['users'] = User::get();
+        $department_id = Auth::user()->department_id;
+        $data['users'] = $department_id ? User::where('department_id', $department_id)->get() : User::get();
         return view('users.list', $data);
     }
 
     public function create()
     {
         $data['roles'] = Role::get();
+        $data['departments'] = Department::where('is_enable', 1)->get();
         return view('users.create', $data);
     }
 
@@ -68,6 +71,7 @@ class UserController extends Controller
         $user->phone        = $request->phone;
         $user->whatsapp     = $request->whatsapp;
         $user->created_by   = Auth::id();
+        $user->department_id = $request->department ?? NULL;
 
         if($request->hasFile('profile_pic')){
             $user->profile_pic = $image_name;
@@ -84,6 +88,7 @@ class UserController extends Controller
         $data['user'] = User::find($id);
         $data['user_role'] = $data['user']->roles->pluck('name','name')->all();
         $data['roles'] = Role::get();
+        $data['departments'] = Department::where('is_enable', 1)->get();
         return view('users.edit', $data);
     }
 
@@ -117,6 +122,7 @@ class UserController extends Controller
         $post_data['phone']        = $request->phone;
         $post_data['whatsapp']     = $request->whatsapp;
         $post_data['updated_by']   = Auth::id();
+        $post_data['department_id'] = $request->department ?? NULL;
 
         if($request->hasFile('profile_pic')){
             $post_data['profile_pic'] = $image_name;
