@@ -8,6 +8,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,6 +72,11 @@ Route::post('departments/store', [DepartmentController::class, 'store'])->name('
 Route::get('departments/edit/{id}', [DepartmentController::class, 'edit'])->name('departments.edit');
 Route::post('departments/update', [DepartmentController::class, 'update'])->name('departments.update');
 Route::delete('departments/destroy/{id}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
+
+// Notification Routes
+Route::get('notifications/read/{id}', [NotificationController::class, 'read'])->name('notifications.read');
+Route::post('notifications/read_all/', [NotificationController::class, 'read_all'])->name('notifications.read_all');
+Route::get('notifications/list', [NotificationController::class, 'list'])->name('notifications.list');
 
 
 // Temporary Routes Goes Here

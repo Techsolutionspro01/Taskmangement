@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Project;
 use App\Models\Attachment;
 use App\Models\Log;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -109,6 +110,17 @@ class TaskController extends Controller
             $file_data->save();
         }
 
+        // Notification
+        $notification = new Notification();
+
+        $notification['task_id']    = $task->id;
+        $notification['title']      = 'New Task Assigned';
+        $notification['message']    = 'A new task is assigned to you by '. Auth::user()->name;
+        $notification['user_id']    = $request->assign_to[0];
+        $notification['created_by'] = Auth::id();
+
+        $notification->save();
+
         return redirect()->route('tasks.list')->with('success','Task assigned successfully');
     }
 
@@ -135,8 +147,30 @@ class TaskController extends Controller
         $log_data['task_id']    = $request->task_id;
         $log_data['old_status'] = $old_status;
         $log_data['status']     = $request->status;
-
         $log_data->save();
+
+        $old_status = config('constants.STATUS_LIST')[$old_status];
+        $new_status = config('constants.STATUS_LIST')[$request->status];
+        
+        $message = '. Changed status from '.$old_status.' to '.$new_status; 
+        // Notification
+        $notification = new Notification();
+        $notification['task_id']    = $request->task_id;
+        $notification['title']      = 'Status Changed';
+        $notification['message']    = 'Task # ' . $request->task_id . $message . Auth::user()->name;
+        $notification['created_by'] = Auth::id();
+
+        if (Auth::id() == $task->created_by) {
+            // If user is creator, notify the assigned user
+            $notification['user_id'] = $task->users[0]->id;
+        } else {
+            // If user is assigned user, notify the creator
+            $notification['user_id'] = $task->created_by;
+        }
+        
+        $notification->save();
+
+
     
         return redirect()->route('tasks.show', ['id' => base64_encode($request->task_id)])->with('success', 'Task updated successfully');
     }

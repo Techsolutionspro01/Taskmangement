@@ -21,3 +21,26 @@
 
 <!-- Dropzone -->
 <script src="{{ asset('assets/theme/libs/dropzone/min/dropzone.min.js')}}"></script>
+
+<script>
+    $('.read-all-notification').click(function() {
+        $.ajax({
+            url: '{{ route('notifications.read_all') }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+
+            success: function(response) {
+                if(response.status === 'success') {
+                    $('.notification-count-badge').text('0');
+                    $('.notify-content').remove();
+                    console.log('All notifications marked as read.');
+                }
+            },
+            error: function(xhr) {
+                console.error('An error occurred:', xhr.responseText);
+            }
+        });
+    });
+</script>
