@@ -65,7 +65,7 @@
                         @foreach ($notifications as $notification)
                             <a href="{{ route('notifications.read', base64_encode($notification->id))}}" class="dropdown-item p-0 notify-item card read-noti shadow-none mb-1">
                                 <div class="card-body">
-                                    <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
+                                    {{-- <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span> --}}
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1 text-truncate ms-2">
                                             <h5 class="noti-item-title fw-semibold font-size-14">{{ $notification->title}}</h5>

@@ -11,6 +11,7 @@ use App\Models\Log;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\PushNotificationService;
 
 class TaskController extends Controller
 {
@@ -121,6 +122,15 @@ class TaskController extends Controller
 
         $notification->save();
 
+        // push notification
+        $msg_post = [
+            'notification_message' => 'New task is assigned to you.',
+            'url' => route('tasks.show', ['id' => base64_encode($notification['task_id'])])
+        ];
+        $user_ids = [$notification['user_id']];
+        $push_notification = new PushNotificationService();
+        $push_notification->send($msg_post, $user_ids);
+
         return redirect()->route('tasks.list')->with('success','Task assigned successfully');
     }
 
@@ -153,6 +163,7 @@ class TaskController extends Controller
         $new_status = config('constants.STATUS_LIST')[$request->status];
         
         $message = '. Changed status from '.$old_status.' to '.$new_status; 
+        
         // Notification
         $notification = new Notification();
         $notification['task_id']    = $request->task_id;
@@ -167,11 +178,17 @@ class TaskController extends Controller
             // If user is assigned user, notify the creator
             $notification['user_id'] = $task->created_by;
         }
-        
         $notification->save();
 
+        // push notification
+        $msg_post = [
+            'notification_message' => 'Task Staus Changed.',
+            'url' => route('tasks.show', ['id' => base64_encode($notification['task_id'])])
+        ];
+        $user_ids = [$notification['user_id']];
+        $push_notification = new PushNotificationService();
+        $push_notification->send($msg_post, $user_ids);
 
-    
         return redirect()->route('tasks.show', ['id' => base64_encode($request->task_id)])->with('success', 'Task updated successfully');
     }
 }
