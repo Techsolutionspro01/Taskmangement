@@ -45,7 +45,7 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="mdi mdi-bell font-size-24"></i>
-                    <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
+                    <span class="badge bg-danger rounded-circle noti-icon-badge notification-count-badge">{{ $notifications->count()}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg py-0">
                     <div class="p-2 border-top-0 border-start-0 border-end-0 border-dashed border">
@@ -54,15 +54,31 @@
                                 <h6 class="m-0 font-size-16 fw-semibold"> Notification</h6>
                             </div>
                             <div class="col-auto">
-                                <a href="javascript: void(0);" class="text-dark text-decoration-underline">
+                                <a href="javascript:void(0);" class="text-dark text-decoration-underline read-all-notification">
                                     <small>Clear All</small>
                                 </a>
                             </div>
                         </div>
                     </div>
 
+                    <div class="px-1 notify-content" style="max-height: 300px;" data-simplebar>
+                        @foreach ($notifications as $notification)
+                            <a href="{{ route('notifications.read', base64_encode($notification->id))}}" class="dropdown-item p-0 notify-item card read-noti shadow-none mb-1">
+                                <div class="card-body">
+                                    {{-- <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span> --}}
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 text-truncate ms-2">
+                                            <h5 class="noti-item-title fw-semibold font-size-14">{{ $notification->title}}</h5>
+                                            <small class="noti-item-subtitle text-muted">{{ $notification->message }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+
                     <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item border-top border-light py-2">
+                    <a href="{{ route('notifications.list') }}" class="dropdown-item text-center text-primary notify-item border-top border-light py-2">
                         View All
                     </a>
 

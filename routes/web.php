@@ -6,7 +6,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
-use App\Models\Project;
+use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +51,12 @@ Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store'
 Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
 Route::post('tasks/update', [TaskController::class, 'update'])->name('tasks.update');
 
+// Task Comments
+Route::post('comments/store', [CommentController::class, 'store'])->name('comments.store');
+
+// Task Attachments
+Route::post('attachments/store', [AttachmentController::class, 'store'])->name('attachments.store');
+
 // Project Routes
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.list');
 Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
@@ -57,7 +65,19 @@ Route::get('projects/edit/{id}', [ProjectController::class, 'edit'])->name('proj
 Route::post('projects/update', [ProjectController::class, 'update'])->name('projects.update');
 Route::delete('projects/destroy/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
-Route::post('comments/store', [CommentController::class, 'store'])->name('comments.store');
+// Department Routes
+Route::get('departments', [DepartmentController::class, 'index'])->name('departments.list');
+Route::get('departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+Route::post('departments/store', [DepartmentController::class, 'store'])->name('departments.store');
+Route::get('departments/edit/{id}', [DepartmentController::class, 'edit'])->name('departments.edit');
+Route::post('departments/update', [DepartmentController::class, 'update'])->name('departments.update');
+Route::delete('departments/destroy/{id}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
+
+// Notification Routes
+Route::get('notifications/read/{id}', [NotificationController::class, 'read'])->name('notifications.read');
+Route::post('notifications/read_all/', [NotificationController::class, 'read_all'])->name('notifications.read_all');
+Route::get('notifications/list', [NotificationController::class, 'list'])->name('notifications.list');
+
 
 // Temporary Routes Goes Here
 Route::get('/assign-task', function () {

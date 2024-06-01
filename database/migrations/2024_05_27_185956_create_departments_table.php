@@ -11,20 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->integer('project_id');
-            $table->tinyInteger('priority');
-            $table->tinyInteger('status')->default(1);
+            $table->string('name');
             $table->tinyInteger('is_enable')->default(1);
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('departments');
     }
 };

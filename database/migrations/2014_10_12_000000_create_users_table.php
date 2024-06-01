@@ -23,6 +23,7 @@ return new class extends Migration
             $table->time('end_time')->nullable();
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();
+            $table->integer('department_id')->nullable();
             $table->tinyInteger('is_enable')->default(1);
             $table->timestamps();
             $table->foreignIdFor(\App\Models\User::class, 'created_by');

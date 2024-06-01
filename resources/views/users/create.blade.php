@@ -48,6 +48,25 @@
                                         </div>
                                     </div>
                                     <div class="mb-2 row">
+                                        <label class="col-md-2 col-form-label" for="departments">Department</label>
+                                        <div class="col-md-10">
+                                            <select name="department" id="department" class="form-select" required>
+                                                <option value="" selected>Select Department</option>
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}" @if(old('department') == $department->id) selected @endif>{{ $department->name }}</option>  
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback text-danger">
+                                                Department is required.
+                                            </div>
+                                            @if ($errors->has('roles'))
+                                                <span class="help-block text-danger">
+                                                    {{ $errors->first('department') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 row">
                                         <label class="col-md-2 col-form-label" for="email">Email</label>
                                         <div class="col-md-10">
                                             <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control" placeholder="Email" required>
