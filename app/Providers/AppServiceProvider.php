@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +31,18 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::replacer('alpha_space', function ($message, $attribute, $rule, $parameters) {
             return str_replace(':attribute', $attribute, ':attribute must contain only alphabets and spaces.');
+        });
+
+        // Use a view composer to share notifications with the 'layout.navbar' view
+        View::composer('layout.navbar', function ($view) {
+            if (Auth::check()) {
+                $notifications = Notification::where('user_id', Auth::id())
+                                             ->where('is_read', 0)
+                                             ->orderBy('created_at', 'desc')
+                                             ->get();
+                                             
+                $view->with('notifications', $notifications);
+            }
         });
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attachment;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
+use App\Models\Notification;
 
 class AttachmentController extends Controller
 {
@@ -30,6 +32,26 @@ class AttachmentController extends Controller
             $file_data['created_by']    = Auth::id();
 
             $file_data->save();
+
+            // Notification
+            $task = Task::with('users')->find($task_id);
+            
+            $notification = new Notification();
+
+            $notification['task_id']    = $request->task_id;
+            $notification['title']      = 'New Attachment';
+            $notification['message']    = 'A new attachment is added by '. Auth::user()->name;
+            $notification['created_by'] = Auth::id();
+
+            if (Auth::id() == $task->created_by) {
+                // If user is creator, notify the assigned user
+                $notification['user_id'] = $task->users[0]->id;
+            } else {
+                // If user is assigned user, notify the creator
+                $notification['user_id'] = $task->created_by;
+            }
+
+            $notification->save();
 
             if($file_data){
                 return response()->json(['success' => 'File uploaded'], 200);

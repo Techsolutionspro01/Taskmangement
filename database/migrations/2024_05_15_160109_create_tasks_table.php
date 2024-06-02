@@ -19,8 +19,8 @@ return new class extends Migration
             $table->tinyInteger('priority');
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('is_enable')->default(1);
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->timestamps();
